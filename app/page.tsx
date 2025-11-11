@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import ChatHeader from "./components/chatHeader/page.tsx";
+import ChatHeader from "./components/chatHeader/page";
 
 export default function Nextchat() {
     const [messeage, setMesseage] = useState([
