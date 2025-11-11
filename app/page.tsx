@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import ChatHeader from "./components/chatHeader/page";
+import Messages from "./components/Messages/page";
 
 export default function Nextchat() {
     const [messeage, setMesseage] = useState([
@@ -12,6 +13,7 @@ export default function Nextchat() {
         <div className="chatApp">
             <ChatHeader />
             <h1>トーク画面</h1>
+            <Messages />
         </div>
         </>
     )

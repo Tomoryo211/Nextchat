@@ -1,0 +1,32 @@
+.message {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.8rem;
+    max-width: 75%;
+    word-break: break-word;
+    &.user {
+    align-self: flex-end;
+    background-color: #4b7bec;
+    color: white;
+    border-radius: 1rem 1rem 0 1rem;
+    padding: 0.8rem 1rem;
+    }
+    &.assistant {
+    align-self: flex-start;
+    background-color: #e5e6eb;
+    color: #333;
+    border-radius: 1rem 1rem 1rem 0;
+    padding: 0.8rem 1rem;
+    }
+}
+
+.text {
+    white-space: pre-wrap;
+}
+
+.role {
+    color: gray;
+    font-size: 0.7rem;
+    margin-top: 0.2rem;
+    text-align: right;
+}
