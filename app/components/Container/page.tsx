@@ -1,4 +1,4 @@
-import Message from "./Messages/page";
+import Message from "../Messages/page";
 import style from "./container.module.scss";
 
 interface Message {
