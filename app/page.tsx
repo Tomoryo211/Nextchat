@@ -3,6 +3,7 @@
 import { useState } from "react";
 import ChatHeader from "./components/chatHeader/page";
 import Container from "./components/Messages/page";
+import Input from "./components/Input/page";
 
 export default function Nextchat() {
     const [messeage, setMesseage] = useState([
@@ -12,8 +13,8 @@ export default function Nextchat() {
         <>
         <div className="chatApp">
             <ChatHeader />
-            <h1>トーク画面</h1>
-            
+            <Container />
+            <Input />
         </div>
         </>
     )

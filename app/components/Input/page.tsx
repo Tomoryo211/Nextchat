@@ -20,7 +20,7 @@ export default function MessageInput({ onSend }: { onSend: (text: string) => voi
                 placeholder="メッセージを入力..."
                 className={input}
             />
-            <button onClick={handleSend} className={}>送信</button>
+            <button onClick={handleSend} className={style.button}>送信</button>
         </div>
     );
 }
