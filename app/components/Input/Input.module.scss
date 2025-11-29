@@ -4,3 +4,22 @@
     border-top: 1px solid #ccc;
     background-color: white;
 }
+.input {
+    flex: 1;
+    padding: 0.6rem;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.button {
+    background-color: #4b7bec;
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    &:hover {
+        background-color: #3867d6;
+    }
+}
