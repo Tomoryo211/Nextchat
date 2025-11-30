@@ -1,18 +1,12 @@
-import styles from "./Messages.module.scss";
+import MessageBubble from "../MessageBubble/page";
+import styles from "./MessageList.module.scss";
 
-interface Messageprops{
-    role:string;
-    text:string;
-}
-
-export default function Nextchat({role, text}: Messageprops){
-    const isUser = role === "user";
-    return(
-        <>
-        <div className={`${styles.message} ${isUser ? styles.user : styles.assistant}`}>
-            <div className={styles.text}>{text}</div>
-            <div className={styles.role}>{isUser ? "あなた" : "AI"}</div>
+export default function MessageList({ messages }: { messages: { role: string; text: string }[] }) {
+    return (
+        <div className={styles.list}>
+            {messages.map((m, i) => (
+                <MessageBubble key={i} role={m.role} text={m.text} />
+            ))}
         </div>
-        </>
     );
-};
+}
