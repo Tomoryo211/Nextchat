@@ -1,12 +1,5 @@
+import styles from "./ChatHeader.module.scss";
 
-import styles from "./chatHeader.module.scss";
-
-export default function Chatheader () {
-    return(
-        <>
-        <header className={styles.header}>
-            <h1 className={styles.title}>Nextchat</h1>
-        </header>
-        </>
-    );
+export default function ChatHeader({ title }: { title: string }) {
+    return <div className={styles.header}>{title}</div>;
 }
