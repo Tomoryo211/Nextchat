@@ -1,17 +1,5 @@
-import Message from "../Messages/page";
-import style from "./container.module.scss";
+import styles from "./Container.module.scss";
 
-interface Message {
-    role: string;
-    text: string;
-}
-
-export default function Container({message}:{message: Message[]}){
-    return(
-        <div className={style.container}>
-            {message.map((m, i) => (
-            <Message key={i} role={m.role} text={m.text} />
-            ))}
-        </div>
-    )
+export default function Container({ children }: { children: React.ReactNode }) {
+    return <div className={styles.container}>{children}</div>;
 }
