@@ -1,25 +1,22 @@
-.inputArea {
+.wrapper {
     display: flex;
-    padding: 0.8rem;
-    border-top: 1px solid #ccc;
-    background-color: white;
+    padding: 10px;
+    border-top: 1px solid #ddd;
 }
+
 .input {
     flex: 1;
-    padding: 0.6rem;
-    border: 1px solid #ddd;
-    border-radius: 0.5rem;
-    margin-right: 0.5rem;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-right: 8px;
 }
 
 .button {
-    background-color: #4b7bec;
+    background: #2d68ff;
     color: white;
     border: none;
-    padding: 0.6rem 1rem;
-    border-radius: 0.5rem;
+    padding: 8px 14px;
+    border-radius: 6px;
     cursor: pointer;
-    &:hover {
-        background-color: #3867d6;
-    }
 }

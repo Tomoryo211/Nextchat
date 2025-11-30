@@ -1,26 +1,26 @@
 "use client";
 import { useState } from "react";
-import style from "./Input.module.scss";
+import styles from "./MessageInput.module.scss";
 
 export default function MessageInput({ onSend }: { onSend: (text: string) => void }) {
     const [input, setInput] = useState("");
 
     const handleSend = () => {
         if (!input.trim()) return;
-            onSend(input);
-            setInput("");
+        onSend(input);
+        setInput("");
     };
 
     return (
-        <div className={style.inputArea}>
+        <div className={styles.wrapper}>
             <input
-                type="text"
+                className={styles.input}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="メッセージを入力..."
-                className={input}
+                onKeyDown={(e) => e.key === "Enter" && handleSend()}
             />
-            <button onClick={handleSend} className={style.button}>送信</button>
+        <button className={styles.button} onClick={handleSend}>送信</button>
         </div>
     );
 }
