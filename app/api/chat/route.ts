@@ -1,27 +1,29 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server';
+import OpenAI from 'openai';
 
-export async function POST(req: Request) {
-  const { messages } = await req.json();
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
+export async function POST(request: NextRequest) {
   try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages,
-      }),
+    const { messages } = await request.json();
+
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4",
+      messages: messages,
+      temperature: 0.7,
+      max_tokens: 1000,
     });
 
-    const data = await response.json();
-    const reply = data.choices?.[0]?.message?.content || "エラーが発生しました。";
+    const reply = completion.choices[0].message.content;
 
     return NextResponse.json({ reply });
-
   } catch (error) {
-    return NextResponse.json({ reply: "⚠️ サーバーエラー：返信できません。" });
+    console.error('Error:', error);
+    return NextResponse.json(
+      { error: 'メッセージの送信に失敗しました' },
+      { status: 500 }
+    );
   }
 }
