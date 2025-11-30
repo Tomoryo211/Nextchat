@@ -1,35 +1,46 @@
 "use client";
 import { useState } from "react";
 import Container from "./components/Container/page";
-import Message from "./components/Messages/page";
+import MessageBubble from "./components/MessageBubble/page";
 import MessageInput from "./components/Input/page";
 import ChatHeader from "./components/chatHeader/page";
 
-export default function Home() {
-    const [messages, setMessages] = useState<{ role: string; text: string }[]>([]);
+export default function Page() {
+    const [messages, setMessages] = useState([
+        { role: "assistant", text: "こんにちは！何を話す？😄" }
+    ]);
 
-    const sendMessage = async (text: string) => {
-        const newMessages = [...messages, { role: "user", text }];
-        setMessages(newMessages);
+async function sendMessage(text: string) {
+    const newMessages = [...messages, { role: "user", text }];
+    setMessages(newMessages);
 
     const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            messages: newMessages.map((m) => ({ role: m.role, content: m.text })),
+            messages: newMessages.map((m) => ({
+            role: m.role === "assistant" ? "assistant" : "user",
+            content: m.text,
+            })),
         }),
     });
 
     const data = await res.json();
-    const reply = data.reply;
+    console.log("Backend response:", data);
 
-    setMessages((prev) => [...prev, { role: "assistant", text: reply }]);
-    };
+    if (data.reply) {
+        setMessages((prev) => [...prev, { role: "assistant", text: data.reply }]);
+    }
+}
 
-    return (
+return (
         <Container>
-        <ChatHeader title="AI Chat" />
-        <Message messages={messages} />
+            <ChatHeader title="Next Chat"/>
+                <div className="flex-1 overflow-y-auto space-y-4 p-4">
+                    {messages.map((msg, i) => (
+                    <MessageBubble key={i} role={msg.role} text={msg.text} />
+                    ))}
+                </div>
         <MessageInput onSend={sendMessage} />
         </Container>
     );
