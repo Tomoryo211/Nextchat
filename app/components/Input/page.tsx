@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import styles from "./MessageInput.module.scss";
+import styles from "./Input.module.scss";
 
 export default function MessageInput({ onSend }: { onSend: (text: string) => void }) {
     const [input, setInput] = useState("");

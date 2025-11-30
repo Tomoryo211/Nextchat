@@ -1,5 +1,5 @@
 import MessageBubble from "../MessageBubble/page";
-import styles from "./MessageList.module.scss";
+import styles from "./Messages.module.scss";
 
 export default function MessageList({ messages }: { messages: { role: string; text: string }[] }) {
     return (
