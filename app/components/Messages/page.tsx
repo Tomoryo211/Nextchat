@@ -1,15 +1,11 @@
-import MessageBubble from "../MessageBubble/page";
 import styles from "./Messages.module.scss";
+import MessageBubble from "../MessageBubble/page";
 
-export default function Messages({ messages }) {
+export default function Messages({ messages }: any) {
   return (
     <div className={styles.messages}>
-      {messages.map((msg, index) => (
-        <MessageBubble 
-          key={index}
-          content={msg.content}
-          isUser={msg.role === "user"}
-        />
+      {messages.map((msg: any) => (
+        <MessageBubble key={msg.id} message={msg.text} isUser={msg.isUser} />
       ))}
     </div>
   );

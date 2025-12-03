@@ -1,29 +1,27 @@
-import { NextRequest, NextResponse } from 'next/server';
-import OpenAI from 'openai';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-export async function POST(request: NextRequest) {
+export async function POST(req) {
   try {
-    const { messages } = await request.json();
+    const { message } = await req.json();
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: messages,
-      temperature: 0.7,
-      max_tokens: 1000,
+    if (!message) {
+      return new Response(JSON.stringify({ error: "Message is required" }), { status: 400 });
+    }
+
+    const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+    const result = await model.generateContent(message);
+
+    const reply = result.response.text();
+
+    return new Response(JSON.stringify({ reply }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
     });
 
-    const reply = completion.choices[0].message.content;
-
-    return NextResponse.json({ reply });
   } catch (error) {
-    console.error('Error:', error);
-    return NextResponse.json(
-      { error: 'メッセージの送信に失敗しました' },
-      { status: 500 }
-    );
+    console.error("API ERROR:", error);
+    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
   }
 }

@@ -2,25 +2,24 @@
 import { useState } from "react";
 import styles from "./Input.module.scss";
 
-export default function MessageInput({ onSend }: { onSend: (text: string) => void }) {
-    const [input, setInput] = useState("");
+export default function Input({ onSend }: any) {
+  const [text, setText] = useState("");
 
-    const handleSend = () => {
-        if (!input.trim()) return;
-        onSend(input);
-        setInput("");
-    };
-
-    return (
-        <div className={styles.wrapper}>
-            <input
-                className={styles.input}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="メッセージを入力..."
-                onKeyDown={(e) => e.key === "Enter" && handleSend()}
-            />
-        <button className={styles.button} onClick={handleSend}>送信</button>
-        </div>
-    );
+  return (
+    <div className={styles.inputArea}>
+      <input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="メッセージを入力..."
+      />
+      <button
+        onClick={() => {
+          onSend(text);
+          setText("");
+        }}
+      >
+        送信
+      </button>
+    </div>
+  );
 }
