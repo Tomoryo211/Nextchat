@@ -1,27 +1,22 @@
+import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-export async function POST(req) {
+export async function POST(req: Request) {
   try {
-    const { message } = await req.json();
+    const { messages } = await req.json();
 
-    if (!message) {
-      return new Response(JSON.stringify({ error: "Message is required" }), { status: 400 });
-    }
+    const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY!);
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
-    const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const response = await model.generateContent(messages.map((m: any) => m.text).join("\n"));
 
-    const result = await model.generateContent(message);
+    return NextResponse.json({ reply: response.response.text() });
 
-    const reply = result.response.text();
-
-    return new Response(JSON.stringify({ reply }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
-
-  } catch (error) {
-    console.error("API ERROR:", error);
-    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+  } catch (error: any) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "AI API エラー", details: error.message },
+      { status: 500 }
+    );
   }
 }
