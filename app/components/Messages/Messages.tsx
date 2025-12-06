@@ -4,7 +4,7 @@ import styles from "./Messages.module.scss";
 export default function Messages({ messages }) {
   return (
     <div className={styles.messages}>
-      {messages.map(msg => (
+      {messages.map((msg) => (
         <MessageBubble key={msg.id} text={msg.text} isUser={msg.isUser} />
       ))}
     </div>

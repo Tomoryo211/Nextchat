@@ -1,17 +1,29 @@
+.row {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.left {
+  justify-content: flex-start;
+}
+
+.right {
+  justify-content: flex-end;
+}
+
 .bubble {
+  padding: 10px;
   max-width: 70%;
-  padding: 12px;
-  border-radius: 14px;
-  word-wrap: break-word;
+  border-radius: 12px;
   font-size: 15px;
 }
 
 .user {
-  background: #dcf8c6;
-  margin-left: auto;
+  background: #4c6ef5;
+  color: white;
 }
 
-.bot {
-  background: #ffffff;
-  border: 1px solid #ddd;
+.ai {
+  background: #e9ecef;
+  color: #333;
 }
