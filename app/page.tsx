@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import Container from "./components/Container/page";
-import Messages from "./components/Messages/page";
-import Input from "./components/Input/page";
+import Messages from "./components/Messages/Messages";
+import Input from "./components/Input/Input";
 
 export default function Home() {
   const [messages, setMessages] = useState<
