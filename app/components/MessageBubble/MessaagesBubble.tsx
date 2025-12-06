@@ -1,4 +1,4 @@
-import styles from "./MessageBubble.module.scss";
+import styles from "./MessagesBubble.module.scss";
 
 export default function MessageBubble({ text, isUser }) {
   return (
