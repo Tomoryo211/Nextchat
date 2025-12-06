@@ -6,7 +6,7 @@ export default function Input({ onSend }: any) {
   const [text, setText] = useState("");
 
   return (
-    <div className={styles.inputArea}>
+    <div className={styles.inputAre}>
       <input
         value={text}
         onChange={(e) => setText(e.target.value)}
