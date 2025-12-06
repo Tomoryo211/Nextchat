@@ -1,61 +1,36 @@
 "use client";
 
 import { useState } from "react";
-import Container from "./components/Container/page";
+import ChatHeader from "./components/chatHeader/ChatHeader";
 import Messages from "./components/Messages/Messages";
-import Input from "./components/Input/Input";
+import ChatInput from "./components/Input/Input";
+import styles from "./page.module.scss";
 
 export default function Home() {
-  const [messages, setMessages] = useState<
-    { id: string; text: string; isUser: boolean }[]
-  >([]);
+  const [messages, setMessages] = useState([]);
 
-  const handleSendMessage = async (text: string) => {
-    if (!text.trim()) return;
+  const sendMessage = async (text: string) => {
+    const updated = [...messages, { id: Date.now(), text, isUser: true }];
+    setMessages(updated);
 
-    const userMsg = {
-      id: crypto.randomUUID(),
-      text,
-      isUser: true,
-    };
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: updated }),
+    });
 
-    setMessages((prev) => [...prev, userMsg]);
+    const data = await res.json();
 
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text }),
-      });
-
-      const data = await res.json();
-
-      if (data.reply) {
-        setMessages((prev) => [
-          ...prev,
-          {
-            id: crypto.randomUUID(),
-            text: data.reply,
-            isUser: false,
-          },
-        ]);
-      }
-    } catch {
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: crypto.randomUUID(),
-          text: "⚠️ エラー：返信取得に失敗しました。",
-          isUser: false,
-        },
-      ]);
+    if (data.reply) {
+      setMessages(prev => [...prev, { id: Date.now(), text: data.reply, isUser: false }]);
     }
   };
 
   return (
-    <Container>
+    <div className={styles.container}>
+      <ChatHeader />
       <Messages messages={messages} />
-      <Input onSend={handleSendMessage} />
-    </Container>
+      <ChatInput onSend={sendMessage} />
+    </div>
   );
 }
