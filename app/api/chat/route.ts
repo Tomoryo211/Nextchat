@@ -6,7 +6,7 @@ export async function POST(req: Request) {
         const { message } = await req.json();
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-2.0-flash", // ←ここ修正
+        model: "gemini-2.0-flash", 
     });
 
     const result = await model.generateContent(message);
