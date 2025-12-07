@@ -1,20 +1,25 @@
 import { NextResponse } from "next/server";
-import { GoogleGenerativeAI } from "@google/generative-ai";
-
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY!);
+import { genAI } from "@/lib/genAI";
 
 export async function POST(req: Request) {
-  try {
-    const { messages } = await req.json();
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    try {
+        const { message } = await req.json();
 
-    const prompt = messages.map(m => `${m.isUser ? "ユーザー" : "AI"}: ${m.text}`).join("\n");
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.0-flash", // ←ここ修正
+    });
 
-    const result = await model.generateContent(prompt);
-    const reply = result.response.text();
+    const result = await model.generateContent(message);
 
-    return NextResponse.json({ reply });
-  } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
+    return NextResponse.json({
+        reply: result.response.text(),
+    });
+
+    } catch (error: any) {
+    console.error("API ERROR:", error);
+    return NextResponse.json(
+        { error: error.message || "エラー発生" },
+        { status: 500 }
+    );
+    }
 }

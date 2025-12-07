@@ -8,5 +8,6 @@ export default function Messages({ messages }) {
         <MessageBubble key={msg.id} text={msg.text} isUser={msg.isUser} />
       ))}
     </div>
+    
   );
 }
