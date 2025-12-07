@@ -12,7 +12,7 @@ export default function Input({ onSend }) {
   };
 
   return (
-    <div className={styles.inputWrap}>
+    <div className={styles.inputArea}>
       <input value={text} onChange={(e) => setText(e.target.value)} placeholder="メッセージ入力..." />
       <button onClick={send}>送信</button>
     </div>
