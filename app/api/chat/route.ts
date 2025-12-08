@@ -10,7 +10,7 @@ export async function POST(req: Request) {
     const model = genAI.getGenerativeModel({
         model: "gemini-2.0-flash", 
     });
-    // 「message」をAIに「result」にAIからの返信が来る
+    // 「message」をAIに送って「result」にAIからの返信が来る
     const result = await model.generateContent(message);
     // replyにAIから来た返事を入れて「reply」で表示
     return NextResponse.json({
