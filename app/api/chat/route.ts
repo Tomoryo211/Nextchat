@@ -16,6 +16,7 @@ export async function POST(req: Request) {
     return NextResponse.json({
         reply: result.response.text(),
     });
+
     // APIkeyがない時にこのエラーが起こる
     } catch (error: any) {
     console.error("API ERROR:", error);
